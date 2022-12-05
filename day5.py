@@ -1,18 +1,37 @@
-crates = [
-    ['N','C','R','T','M','Z','P'],
-    ['D','N','T','S','B','Z'],
-    ['M','H','Q','R','F','C','T','G'],
-    ['G','R','Z'],
-    ['Z','N','R','H'],
-    ['F','H','S','W','P','Z','L','D'],
-    ['W','D','Z','R','C','G','M'],
-    ['S','J','F','L','H','W','Z','Q'],
-    ['S','Q','P','W','N']
-]
+def get_crates():
+    # Get terrible input mess
+    with open("day5_input.txt") as f:
+        lines = f.readlines()
+    lines = lines[0:9]
+  
+    # Rotate 90 degrees with zip
+    rotated = list(zip(*lines[::-1]))
+
+    # Get rid of all the extraneous parenthases
+    crates = []
+
+    # Actual input starts wtih a stack number
+    for l in rotated:
+        if l[0].isnumeric():
+            crates.append(l)
+
+    # Strip the stack numbers once we have the right rows
+    for i in range(len(crates)):
+        crates[i] = crates[i][1:]
+    
+    # Filter out all whitespaces
+    for i in range(len(crates)):
+        res = [i for i in crates[i] if i != ' ']
+        crates[i] = res
+
+    return crates
 
 def part1():
+    crates = get_crates()
+
     with open("day5_input_moves.txt") as f:
         lines = f.readlines()
+    lines = lines[10:]
 
     for line in lines:
         print(line)
@@ -26,11 +45,15 @@ def part1():
             crates[dest-1].append(crate)
         
     print("Output:")
-    print(crates)
+    for stack in crates:
+        print(stack[-1:])
 
 def part2():
-    with open("day5_input_moves.txt") as f:
+    crates = get_crates()
+
+    with open("day5_input.txt") as f:
         lines = f.readlines()
+    lines = lines[10:]
 
     for line in lines:
         print(line)
@@ -44,7 +67,8 @@ def part2():
         crates[dest-1].extend(to_move)
 
     print("Output:")
-    print(crates)
+    for stack in crates:
+        print(stack[-1:])
         
 if __name__ == "__main__":
     part2()
