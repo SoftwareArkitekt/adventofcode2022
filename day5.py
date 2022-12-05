@@ -8,7 +8,7 @@ def get_crates():
     rotated = list(zip(*lines[::-1]))
 
     crates = []
-    # Actual input starts wtih a stack number
+    # Actual input starts with a stack number
     for l in rotated:
         if l[0].isnumeric():
             crates.append(l)
