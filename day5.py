@@ -7,9 +7,7 @@ def get_crates():
     # Rotate 90 degrees with zip
     rotated = list(zip(*lines[::-1]))
 
-    # Get rid of all the extraneous parenthases
     crates = []
-
     # Actual input starts wtih a stack number
     for l in rotated:
         if l[0].isnumeric():
